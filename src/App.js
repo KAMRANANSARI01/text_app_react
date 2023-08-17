@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import TextArea from "./components/TextArea";
+import Alert from "./components/Alert";
+// import About from "./components/About";
+import React, { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [mode, setMode] = useState("light");
+  const [modeNamechange, setModeNamechange] = useState("Enable Dark Mode");
+  const handleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      setModeNamechange("Enable Light Mode");
+      // for enable dark backgraound color.
+      document.body.style.backgroundColor = "#042743";
+      showAlert(" Dark mode has been enabled", "Success: ");
+    } else {
+      setMode("light");
+      setModeNamechange("Enable Dark Mode");
+      document.body.style.backgroundColor = "#fff";
+      showAlert(" Light mode has been enabled", "Success: ");
+    }
+  };
+  // usestate for alert
+  const [alert, setAlert] = useState(null);
+  const showAlert = (massage, type) => {
+    setAlert({
+      massage: massage,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500);
+  };
 
+  return(
+  <>
+    <Navbar
+      title="TextUtils"
+      mode={mode}
+      handleMode={handleMode}
+      modeNamechange={modeNamechange}
+      aboutText="About TextUtils"
+    />
+    <Alert alert={alert} />
+
+    <div className="container my-3">
+      <TextArea
+        heading="Enter the text to analyze below"
+        mode={mode}
+        showAlert={showAlert}
+      />
+      {/* <About />  */}
+    </div>
+  </>
+  )
+}
 export default App;

@@ -1,13 +1,14 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import TextArea from "./components/TextArea";
 import Alert from "./components/Alert";
 // import About from "./components/About";
 import React, { useState } from "react";
+import CustomRoutes from "./Routes/CustomRoutes";
 
 function App() {
   const [mode, setMode] = useState("light");
   const [modeNamechange, setModeNamechange] = useState("Enable Dark Mode");
+
   const handleMode = () => {
     if (mode === "light") {
       setMode("dark");
@@ -44,15 +45,8 @@ function App() {
       aboutText="About TextUtils"
     />
     <Alert alert={alert} />
+    <CustomRoutes/>
 
-    <div className="container my-3">
-      <TextArea
-        heading="Enter the text to analyze below"
-        mode={mode}
-        showAlert={showAlert}
-      />
-      {/* <About />  */}
-    </div>
   </>
   )
 }
